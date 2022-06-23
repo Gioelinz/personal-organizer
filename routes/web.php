@@ -16,3 +16,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+
+Route::middleware('auth')
+    ->prefix('home')
+    ->name('home.')
+    ->group(function () {
+        Route::get('/', 'HomeController@index');
+        Route::resource('/organizer', 'OrganizerController');
+    });

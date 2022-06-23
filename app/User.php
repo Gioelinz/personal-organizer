@@ -36,4 +36,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /*! Relations functions !*/
+
+    public function organizers()
+    {
+        return $this->hasMany('App\Models\Organizer');
+    }
 }
