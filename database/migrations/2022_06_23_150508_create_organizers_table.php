@@ -18,6 +18,7 @@ class CreateOrganizersTable extends Migration
             /* foreign key for user */
             $table->foreignId('user_id')->constrained();
 
+            $table->string('description')->nullable();
             $table->dateTime('expire')->required();
             $table->dateTime('reminder')->required();
             $table->boolean('notification')->default(0);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Organizer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class OrganizerController extends Controller
 {
@@ -14,7 +15,10 @@ class OrganizerController extends Controller
      */
     public function index()
     {
-        //
+        /* take only organizer from user autenticated */
+        $organizers = Organizer::where('user_id', '=', auth()->user()->id)->get();
+
+        return view('organizers.index', compact('organizers'));
     }
 
     /**
@@ -24,7 +28,8 @@ class OrganizerController extends Controller
      */
     public function create()
     {
-        //
+        $organizer = new Organizer();
+        return view('organizers.create', compact('organizer'));
     }
 
     /**
@@ -35,7 +40,34 @@ class OrganizerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        /* Validation */
+        $request->validate(
+            [
+                'expire' => 'required|date',
+                'description' => 'nullable|string',
+            ],
+            [
+                'required' => 'Il campo :attribute è obbligatorio',
+            ]
+        );
+
+        $data = $request->all();
+
+        /* user id authenticated */
+        $data['user_id'] = auth()->user()->id;
+
+        /* Checkbox control */
+        if (isset($data['notification'])) $data['notification'] = 1;
+
+        /* Carbon formatter */
+        $carbon = new Carbon($data['expire']);
+
+        /* Reminder creation */
+        $data['reminder'] = $carbon->subHour();
+
+        $organizer = Organizer::create($data);
+
+        return redirect()->route('home.organizer.index')->with('message', "Appuntamento creato");
     }
 
     /**
@@ -57,7 +89,13 @@ class OrganizerController extends Controller
      */
     public function edit(Organizer $organizer)
     {
-        //
+        /* Convert datetime  */
+
+        $organizer->expire = substr_replace($organizer->expire, 'T', 10, 1);
+
+        /* dd($organizer->expire); */
+
+        return view('organizers.edit', compact('organizer'));
     }
 
     /**

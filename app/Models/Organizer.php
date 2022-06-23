@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Organizer extends Model
 {
     protected $fillable = [
-        'user_id', 'expire', 'reminder', 'notification'
+        'user_id', 'description', 'expire', 'reminder', 'notification'
     ];
 
     public function user()
