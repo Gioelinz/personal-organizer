@@ -45,7 +45,8 @@
         </div>
         {{-- Reminder notification --}}
         <div class="custom-control custom-switch mb-3">
-            <input type="checkbox" class="custom-control-input" id="notification" name="notification">
+            <input type="checkbox" class="custom-control-input" id="notification" name="notification"
+                @if ($organizer->notification) checked @endif>
             <label class="custom-control-label" for="notification">Ricevi notifica 1 ora prima dell'evento</label>
         </div>
 

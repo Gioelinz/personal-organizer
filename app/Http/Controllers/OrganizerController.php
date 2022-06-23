@@ -89,8 +89,7 @@ class OrganizerController extends Controller
      */
     public function edit(Organizer $organizer)
     {
-        /* Convert datetime  */
-
+        /* Convert datetime for input*/
         $organizer->expire = substr_replace($organizer->expire, 'T', 10, 1);
 
         /* dd($organizer->expire); */
@@ -107,7 +106,38 @@ class OrganizerController extends Controller
      */
     public function update(Request $request, Organizer $organizer)
     {
-        //
+        /* Validation */
+        $request->validate(
+            [
+                'expire' => 'required|date',
+                'description' => 'nullable|string',
+            ],
+            [
+                'required' => 'Il campo :attribute è obbligatorio',
+            ]
+        );
+
+        $data = $request->all();
+
+        /* Checkbox control */
+        if (isset($data['notification'])) $data['notification'] = 1;
+        else $data['notification'] = 0;
+
+        /* Convert datetime for input*/
+        $organizer->expire = substr_replace($organizer->expire, 'T', 10, 1);
+
+        /* if expire change, change reminder */
+        if ($organizer->expire != $data['expire']) {
+            /* Carbon formatter */
+            $carbon = new Carbon($data['expire']);
+
+            /* Reminder creation */
+            $data['reminder'] = $carbon->subHour();
+        }
+
+        $organizer->update($data);
+
+        return redirect()->route('home.organizer.index')->with('message', "Appuntamento modificato");
     }
 
     /**

@@ -2,6 +2,11 @@
 
 @section('content')
     <div class="container">
+        @if (session('message'))
+            <div class="alert alert-success">
+                {{ session('message') }}
+            </div>
+        @endif
         <div class="row">
             @forelse ($organizers as $organizer)
                 <div class="col-md-6">
