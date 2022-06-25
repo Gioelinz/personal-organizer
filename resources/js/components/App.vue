@@ -63,7 +63,7 @@ export default {
       /* each organizer push to events */
       this.organizers.forEach((o) => {
         const obj = {
-          title: o.description || "No description",
+          title: o.description || "Nessuna descrizione",
           date: o.expire,
         };
         this.calendarOptions.events.push(obj);

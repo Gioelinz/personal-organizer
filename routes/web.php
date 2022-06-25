@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
 
@@ -27,3 +23,7 @@ Route::middleware('auth')
         Route::get('/', 'HomeController@index');
         Route::resource('/organizer', 'OrganizerController');
     });
+
+Route::get('/', function () {
+    return view('welcome');
+});
