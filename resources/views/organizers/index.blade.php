@@ -23,9 +23,8 @@
                                         class="btn btn-warning btn-sm">
                                         <i class="fa-solid fa-pencil"></i>
                                     </a>
-                                    <a href="" class="btn btn-danger btn-sm">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </a>
+                                    {{-- Destroy organizer modal --}}
+                                    @include('includes.modal-delete')
                                 </div>
                             </div>
                         </div>

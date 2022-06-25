@@ -148,6 +148,9 @@ class OrganizerController extends Controller
      */
     public function destroy(Organizer $organizer)
     {
-        //
+
+        $organizer->delete();
+
+        return redirect()->route('home.organizer.index')->with('message', "Appuntamento eliminato");
     }
 }
