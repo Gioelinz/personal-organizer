@@ -43,10 +43,19 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('home.organizer.create') }}">Aggiungi <span
-                                    class="sr-only">(current)</span></a>
-                        </li>
+                        @auth
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('home.') ? 'active' : '' }}"
+                                    href="{{ route('home.') }}">Dashboard<span class="sr-only">(Dashboard)</span></a>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('home.organizer.create') ? 'active' : '' }}"
+                                    href="{{ route('home.organizer.create') }}">Aggiungi<span
+                                        class="sr-only">(Aggiungi)</span>
+                                </a>
+                            </li>
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
