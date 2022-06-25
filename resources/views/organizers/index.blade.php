@@ -7,6 +7,7 @@
                 {{ session('message') }}
             </div>
         @endif
+        <a class="btn btn-outline-primary mb-2" href="{{ route('home.') }}">Torna alla home</a>
         <div class="row">
             @forelse ($organizers as $organizer)
                 <div class="col-md-6">
